@@ -1,6 +1,6 @@
-# vscode-fe-helper README
+# vscode-fehelper README
 
-This is the README for your extension "vscode-fe-helper". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "vscode-fehelper". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
