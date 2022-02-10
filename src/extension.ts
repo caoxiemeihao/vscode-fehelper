@@ -1,11 +1,16 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import FePlugin from './FePlugin';
 import { NodeDependenciesProvider } from './NodeDependenciesProvider';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	vscode.window.showInformationMessage('The method(activate) of [vscode-fehelper] extension has executed.');
+
+	// ---------------------------------------------------------------------------
+
 	vscode.window.registerTreeDataProvider(
 		'nodeDependencies',
 		// @ts-ignore
@@ -17,14 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	// @ts-ignore
 	const nodeDependenciesProvider = new NodeDependenciesProvider(vscode.workspace.rootPath);
-  vscode.window.registerTreeDataProvider('nodeDependencies', nodeDependenciesProvider);
-  vscode.commands.registerCommand('nodeDependencies.refreshEntry', () =>
-    nodeDependenciesProvider.refresh()
-  );
+	vscode.window.registerTreeDataProvider('nodeDependencies', nodeDependenciesProvider);
+	vscode.commands.registerCommand('nodeDependencies.refreshEntry', () =>
+		nodeDependenciesProvider.refresh()
+	);
 
 	// ---------------------------------------------------------------------------
 
-
+	context.subscriptions.push(new FePlugin(context));
 
 	// ---------------------------------------------------------------------------
 

@@ -10,10 +10,23 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onView:nodeDependencies"
+		"onView:nodeDependencies",
+		"onView:nodeDependenciesWelcome",
+		"onView:fePlugin",
+		"onView:fePluginWelcome"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+			{
+				"command": "nodeDependencies.addEntry",
+				"title": "Add"
+			},
+			{
+				"command": "fePlugin.viewMore",
+				"title": "View More"
+			}
+		],
 		"views": {
 			"package-explorer": [
 				{
@@ -28,6 +41,18 @@
 					"icon": "resources/npm.svg",
 					"contextualTitle": "Package Explorer"
 				}
+			],
+			"fe-plugin": [
+				{
+					"id": "fePluginWelcome",
+					"name": "Welcome",
+					"icon": "resources/line-plugin.svg"
+				},
+				{
+					"id": "fePlugin",
+					"name": "Fe Plugin",
+					"icon": "resources/line-plugin.svg"
+				}
 			]
 		},
 		"viewsContainers": {
@@ -36,15 +61,37 @@
 					"id": "package-explorer",
 					"title": "Package Explorer",
 					"icon": "resources/npm.svg"
+				},
+				{
+					"id": "fe-plugin",
+					"title": "Fe Plugin",
+					"icon": "resources/line-plugin.svg"
 				}
 			]
 		},
 		"viewsWelcome": [
 			{
 				"view": "nodeDependenciesWelcome",
-				"contents": "No node dependencies found [learn more](https://www.npmjs.com/).\n[Add Dependency](command:nodeDependencies.addEntry)"
+				"contents": "No node dependencies found [learn more](https://www.npmjs.com/).\n[Refresh Dependency](command:nodeDependencies.refreshEntry)"
+			},
+			{
+				"view": "fePluginWelcome",
+				"contents": "Welcome to Front end plugin.\n[View More](command:fePlugin.viewMore)"
 			}
-		]
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "nodeDependencies.refreshEntry",
+					"when": "view == nodeDependencies",
+					"group": "navigation"
+				},
+				{
+					"command": "nodeDependencies.addEntry",
+					"when": "view == nodeDependencies"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
