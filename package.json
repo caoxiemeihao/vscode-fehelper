@@ -1,5 +1,5 @@
 {
-  "name": "vscode-fehelper",
+	"name": "vscode-fehelper",
 	"displayName": "vscode-fehelper",
 	"description": "Front end helper.",
 	"version": "0.0.1",
@@ -10,14 +10,39 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:vscode-fehelper.helloWorld"
+		"onView:nodeDependencies"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
+		"views": {
+			"package-explorer": [
+				{
+					"id": "nodeDependenciesWelcome",
+					"name": "Welcome",
+					"icon": "resources/npm.svg",
+					"contextualTitle": "Package Explorer"
+				},
+				{
+					"id": "nodeDependencies",
+					"name": "Node Dependencies",
+					"icon": "resources/npm.svg",
+					"contextualTitle": "Package Explorer"
+				}
+			]
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "package-explorer",
+					"title": "Package Explorer",
+					"icon": "resources/npm.svg"
+				}
+			]
+		},
+		"viewsWelcome": [
 			{
-				"command": "vscode-fehelper.helloWorld",
-				"title": "Hello World"
+				"view": "nodeDependenciesWelcome",
+				"contents": "No node dependencies found [learn more](https://www.npmjs.com/).\n[Add Dependency](command:nodeDependencies.addEntry)"
 			}
 		]
 	},
