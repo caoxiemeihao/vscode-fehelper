@@ -23,6 +23,10 @@
 				"title": "Add"
 			},
 			{
+				"command": "nodeDependencies.refreshEntry",
+				"title": "Refresh Entry"
+			},
+			{
 				"command": "fePlugin.viewMore",
 				"title": "View More"
 			}

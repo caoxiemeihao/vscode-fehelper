@@ -1,16 +1,18 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import FePlugin from './FePlugin';
+import { FePlugin, FePluginTree } from './FePlugin';
 import { NodeDependenciesProvider } from './NodeDependenciesProvider';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	// vscode.window.setStatusBarMessage('The method(activate) of [vscode-fehelper] extension has executed.');
 	vscode.window.showInformationMessage('The method(activate) of [vscode-fehelper] extension has executed.');
 
 	// ---------------------------------------------------------------------------
 
+	// official demo
 	vscode.window.registerTreeDataProvider(
 		'nodeDependencies',
 		// @ts-ignore
@@ -29,7 +31,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// ---------------------------------------------------------------------------
 
-	context.subscriptions.push(new FePlugin(context));
+	context.subscriptions.push(
+		// for Welcome panel
+		vscode.commands.registerCommand('fePlugin.viewMore', () => {
+			vscode.window.showInformationMessage('Clicked Front end plugin [View More].');
+		}),
+	);
+
+	context.subscriptions.push(
+		FePluginTree.createTreeView(new FePlugin),
+	);
 
 	// ---------------------------------------------------------------------------
 
