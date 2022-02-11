@@ -1,6 +1,7 @@
 import vscode = require('vscode');
 import path = require('path');
 import { plugins, Plugin } from './mock';
+import Webview from './Webview';
 
 // like static class
 export module FePluginTree {
@@ -9,6 +10,7 @@ export module FePluginTree {
 
     treeView.onDidChangeSelection(async item => {
       const plugin = plugins.find(c => c.label === item.selection[0].label) || {} as Plugin;
+      fePlugin.webview.setPlugin(plugin);
       vscode.window.showInformationMessage(`[onDidChangeSelection] (${plugin.label})`);
     });
     treeView.onDidChangeVisibility(() => {
@@ -27,24 +29,25 @@ export module FePluginTree {
 
 export class FePlugin implements vscode.TreeDataProvider<PluginItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<void | PluginItem | null | undefined>();
+  webview: Webview;
 
   // like network request
   children = new Promise<PluginItem[]>(resolve => {
     setTimeout(() => {
-      vscode.window.showInformationMessage('+++++++++');
       resolve(plugins.map(plugin => new PluginItem(
         plugin.label,
         plugin.desc,
         plugin.version,
         plugin.icon,
       )));
-    }, 1000 * 1.5);
+    }, 1000 * .999);
   });
 
   constructor(
-    private ctx?: vscode.ExtensionContext,
+    private ctx: vscode.ExtensionContext,
   ) {
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+    this.webview = new Webview(this.ctx);
   }
 
   // ---- impl ----

@@ -39,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(
-		FePluginTree.createTreeView(new FePlugin),
+		FePluginTree.createTreeView(new FePlugin(context)),
 	);
 
 	// ---------------------------------------------------------------------------
