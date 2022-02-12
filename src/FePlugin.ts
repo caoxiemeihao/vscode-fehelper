@@ -53,11 +53,11 @@ export class FePlugin implements vscode.TreeDataProvider<PluginItem> {
   // ---- impl ----
   onDidChangeTreeData?: vscode.Event<void | PluginItem | null | undefined> | undefined;
   getTreeItem(element: PluginItem): vscode.TreeItem | Thenable<vscode.TreeItem> {
-    console.log('---- getTreeItem ----', element); // step-2: tree item, from step-1
+    // step-2: treeView item, from step-1
     return element;
   }
   getChildren(element?: PluginItem): Thenable<PluginItem[]> {
-    console.log('---- getChildren ----', element); // step-1: tree list
+    // step-1: treeView list
     return this.children;
   }
   // ---- impl ----
