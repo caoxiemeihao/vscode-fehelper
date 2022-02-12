@@ -17,7 +17,7 @@ export const plugins: Plugin[] = [
     desc: 'One click integration Vite',
     skeleton: '<h2>One click integration Vite ⚡️</h2>',
     html: '',
-    link: 'http://127.0.0.1:5500/plugins/vite-vue/index.html',
+    link: 'plugins/vite-vue/index.html',
   },
   {
     label: 'Npm',
@@ -26,6 +26,6 @@ export const plugins: Plugin[] = [
     desc: 'Dependencies manager',
     skeleton: '<h2>Dependencies manager 🛠</h2>',
     html: '',
-    link: 'http://127.0.0.1:5500/plugins/npm/index.html',
+    link: 'plugins/npm/index.html',
   },
 ];

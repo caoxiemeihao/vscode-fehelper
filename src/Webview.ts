@@ -20,24 +20,18 @@ export default class Webview {
   }
 
   setPlugin(plugin: Plugin) {
-    const html = this.plugin.html;
     this.plugin = plugin;
-    if (html) { // use html cache
-      this.panel.webview.html = html;
-      this.plugin.html = html;
-    } else {
-      this.renderSkeleton();
-      this.renderHtml();
-    }
+    this.renderSkeleton();
+    this.renderHtml();
   }
 
   private renderSkeleton() {
     this.panel.webview.html = this.plugin.html;
   }
 
-  private async renderHtml() {
+  private renderHtml() {
     try {
-      const html = await Helper.get(this.plugin.link);
+      const html = Helper.readFile(Helper.rootResolve(this.plugin.link));
       this.plugin.html = html;
       this.panel.webview.html = html;
     } catch (error) {
