@@ -12,7 +12,6 @@
     #root { width: 100vw; height: 100vh; }
     .logo { padding: 24px 0; }
     .logo svg { width: 147px; }
-    .function .function-item:last-child { margin-top: 25px; }
     .border-bottom { border-bottom: 1px solid #ccc; }
   </style>
 </head>
@@ -22,11 +21,7 @@
       <svg viewBox="0 0 780 250"><path fill="#231F20" d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z"></path></svg>
     </div>
     <div class="function border-bottom padding-md">
-      <div class="function-item">
-        <h2>Npm manager</h2>
-        <pre>
-          {{packages}}
-        </pre>
+      <div class="function-item" id="npm-deps">
       </div>
     </div>
     <div class="operate text-center padding-md">
@@ -35,7 +30,46 @@
   </div>
 
   <script>
-    console.log(window.vscode);
+    ; (() => {
+      if (!window.acquireVsCodeApi) {
+        console.warn('Is not vscode extensition environment.');
+        return;
+      }
+
+      const vscode = window.acquireVsCodeApi();
+
+      window.addEventListener('message', event => {
+        const message = event.data; // The JSON data our extension sent
+
+        switch (message.command) {
+          case 'package.json':
+            const deps = message.payload;
+            const oNpmDeps = document.getElementById('npm-deps');
+            const innerHTML = `
+              <h2>Dependencies</h2>
+              <ul>
+                ${Object
+                  .entries(deps.dependencies || {})
+                  .map(([name, version]) => `<li>${name}: ${version}</li>`)
+                  .join('\n')}
+              </ul>
+              <h2>Dev Dependencies</h2>
+              <ul>
+                ${Object
+                  .entries(deps.devDependencies || {})
+                  .map(([name, version]) => `<li>${name}: ${version}</li>`)
+                  .join('\n')}
+              </ul>
+            `;
+            oNpmDeps.innerHTML = innerHTML;
+            break;
+        }
+      });
+
+      vscode.postMessage({
+        command: 'package.json',
+      });
+    })();
   </script>
-</body>
+  </body>
 </html>
