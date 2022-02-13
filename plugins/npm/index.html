@@ -5,15 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    body { margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { line-height: 1.4; }
+    .text-center { text-align: center; }
+    .padding-md { padding: 15px; }
     #root { width: 100vw; height: 100vh; }
-    img { width: 100%; }
+    .logo { padding: 24px 0; }
+    .logo svg { width: 147px; }
+    .function .function-item:last-child { margin-top: 25px; }
+    .border-bottom { border-bottom: 1px solid #ccc; }
   </style>
 </head>
 <body>
   <div id="root">
-    <h2>Npm manager</h2>
-    <img src="./public/npm.jpg">
+    <div class="logo border-bottom text-center">
+      <svg viewBox="0 0 780 250"><path fill="#231F20" d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z"></path></svg>
+    </div>
+    <div class="function border-bottom padding-md">
+      <div class="function-item">
+        <h2>Npm manager</h2>
+        <pre>
+          {{packages}}
+        </pre>
+      </div>
+    </div>
+    <div class="operate text-center padding-md">
+      <button>Click to update dependenices 🛠</button>
+    </div>
   </div>
+
+  <script>
+    console.log(window.vscode);
+  </script>
 </body>
 </html>
