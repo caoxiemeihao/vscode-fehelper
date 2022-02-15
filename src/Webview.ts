@@ -27,7 +27,7 @@ export default class Webview {
   }
 
   private renderSkeleton() {
-    this.panel.webview.html = this.plugin.html;
+    this.panel.webview.html = this.plugin.skeleton;
   }
 
   private renderHtml() {
